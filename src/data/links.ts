@@ -1,12 +1,12 @@
 // Todos os links da casa num lugar só. Se a 1win trocar o domínio espelho, muda aqui.
-export const AFF = '9g0q'; // seu código de afiliado (cassino e jogos)
-export const HOUSE = 'https://1wzogj.life'; // domínio espelho que abre jogo direto
+export const AFF = 'y8gn'; // seu código de afiliado (cassino e jogos) — atualizado pela 1win em 14/10
+export const HOUSE = 'https://r1wqahjs.life'; // domínio do seu link de afiliado (abre jogo direto)
 
 // Promoção de 500% (só no popup "Oferta do dia")
 export const OFFER_URL = 'https://r1wvwsu.life/v3/aggressive-casino?p=bldr';
 
 // Cassino (lobby) com cadastro, trackeado
-export const CASINO_URL = `https://r1wnbepa.life/casino/list?open=register&p=${AFF}`;
+export const CASINO_URL = `${HOUSE}/casino?open=register&p=${AFF}`;
 
 // Depósito: a casa tem atalho oficial (?open=deposit) que abre a janela de depósito direto.
 export const DEPOSIT_URL = `${HOUSE}/casino?open=deposit&p=${AFF}`;
