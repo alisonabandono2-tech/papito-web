@@ -11,6 +11,8 @@ import type { GameKey } from './lab/engine';
 import Vip from './screens/Vip';
 import Carteira from './screens/Carteira';
 import Onboard from './components/Onboard';
+import InstallGate from './components/InstallGate';
+import { needsInstallGate } from './install';
 import BottomNav, { TAB_KEYS } from './components/BottomNav';
 import Papito from './components/Papito';
 import { fireConfetti } from './components/ui';
@@ -22,6 +24,7 @@ import { sfx, haptic } from './sfx';
 
 export default function App() {
   const [profile, setProfile] = useProfile();
+  const [gate, setGate] = useState(needsInstallGate);
   const [stack, setStack] = useState<string[]>(['inicio']);
   const [dir, setDir] = useState(1);
   const [gains, setGains] = useState<{ id: number; amount: number; reason: string }[]>([]);
@@ -72,6 +75,9 @@ export default function App() {
     if (stack.length > 1) { try { history.back(); } catch { setDir(-1); setStack((s) => s.slice(0, -1)); } }
   };
   const swapTop = (k: string) => setStack((s) => [...s.slice(0, -1), k]);
+
+  // 1º: instalar o app (no celular, fora do app instalado)
+  if (gate) return <InstallGate onSkip={() => setGate(false)} />;
 
   if (!profile) {
     return (

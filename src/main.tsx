@@ -2,6 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
+import { initInstall } from './install';
+
+// escuta o pedido de instalação do Android antes de tudo
+initInstall();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
