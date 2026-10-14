@@ -2,7 +2,7 @@
 // idx = posição da capa no sprite /public/capas.jpg (12 colunas x 10 linhas).
 // No app real, isso vem de um pequeno backend que atualiza o catálogo da casa.
 
-export type Game = { name: string; online: number; idx: number; isNew?: boolean };
+export type Game = { name: string; online: number; idx: number; isNew?: boolean; play?: string };
 
 export function coverPos(idx: number): string {
   const col = idx % 12;
@@ -95,3 +95,28 @@ export const VOTE_POOL: Vote[] = [
   { name: 'Sugar Rush 1000', idx: 53, votes: 110 },
   { name: 'Bac Bo', idx: 111, votes: 90 },
 ];
+
+// ---- Link do jogo (deep-link por jogo, trackeado) ----
+// Padrão da casa: https://1wzogj.life/casino/play/<provedor>:<slug>?p=<codigo>
+// Confirmados: PG Soft = v_pgsoft (ex.: v_pgsoft:fortuneox), Evolution = v_evolution (ex.: v_evolution:bacboaovivo).
+export const AFF = '9g0q';
+
+const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '');
+
+// PG Soft: deriva o slug do nome (padrão confirmado com Fortune Ox).
+SLOTS_PG.forEach((g) => { g.play = `v_pgsoft:${slugify(g.name)}`; });
+
+// Ao vivo (Evolution): só os slugs confirmados; o resto cai no lobby até a gente confirmar.
+const LIVE_PLAY: Record<string, string> = {
+  'Bac Bo': 'v_evolution:bacboaovivo',
+};
+LIVE.forEach((g) => { if (LIVE_PLAY[g.name]) g.play = LIVE_PLAY[g.name]; });
+
+// Pragmatic e Crash: provedor ainda não confirmado → abrem o lobby trackeado por enquanto.
+
+// Monta o link ao clicar num jogo: jogo específico se tiver slug, senão o lobby.
+export function gameUrl(g: Game): string {
+  return g.play
+    ? `https://1wzogj.life/casino/play/${g.play}?p=${AFF}`
+    : `https://r1wnbepa.life/casino/list?open=register&p=${AFF}`;
+}

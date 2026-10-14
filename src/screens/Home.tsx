@@ -7,11 +7,12 @@ import BottomNav from '../components/BottomNav';
 import LiveRanking from '../components/LiveRanking';
 import { sfx, haptic } from '../sfx';
 import { useCountUp, levelInfo, money } from '../utils';
-import { SLOTS_PG, SLOTS_PR, CRASH, LIVE, coverPos, type Game } from '../data/games';
+import { SLOTS_PG, SLOTS_PR, CRASH, LIVE, coverPos, gameUrl, type Game } from '../data/games';
 import { getProfile, firstName } from '../profile';
 
-// Link de afiliado da casa (abre o cadastro da 1win com o seu código).
+// Link da promoção de 500% (usado só no popup "Oferta do dia").
 const OFFER_URL = 'https://r1wvwsu.life/v3/aggressive-casino?p=bldr';
+// gameUrl (link por jogo, trackeado) vem de ../data/games
 
 
 function fireConfetti(big = false) {
@@ -84,8 +85,9 @@ export default function Home({ onNav }: { onNav: (k: string) => void }) {
   const openGame = (g: Game) => {
     sfx.whoosh();
     haptic(10);
-    showToast(`Abrindo ${g.name}…`);
-    // No app real: abre o jogo da casa (game launch do afiliado), com a sessão do jogador.
+    showToast(`Abrindo ${g.name} na casa…`);
+    // Abre a casa com seu link de afiliado (trackeado), numa aba nova.
+    window.open(gameUrl(g), '_blank', 'noopener,noreferrer');
   };
 
   const tapNav = (k: string) => {
