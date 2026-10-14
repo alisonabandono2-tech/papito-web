@@ -3,7 +3,7 @@ export const AFF = 'y8gn'; // seu código de afiliado (cassino e jogos) — atua
 export const HOUSE = 'https://r1wqahjs.life'; // domínio do seu link de afiliado (abre jogo direto)
 
 // Promoção de 500% (só no popup "Oferta do dia")
-export const OFFER_URL = 'https://r1wvwsu.life/v3/aggressive-casino?p=bldr';
+export const OFFER_URL = 'https://r1wqahjs.life/v3/aggressive-casino?p=6k0v';
 
 // Cassino (lobby) com cadastro, trackeado
 export const CASINO_URL = `${HOUSE}/casino?open=register&p=${AFF}`;
