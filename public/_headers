@@ -1,0 +1,11 @@
+# Cabeçalhos de segurança (Cloudflare Pages lê este arquivo sozinho)
+/*
+  X-Frame-Options: DENY
+  Content-Security-Policy: frame-ancestors 'none'
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# o service worker sempre atualizado (pra quem instalou receber versão nova)
+/sw.js
+  Cache-Control: no-cache
