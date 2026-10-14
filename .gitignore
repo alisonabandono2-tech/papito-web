@@ -1,0 +1,11 @@
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+.vscode
+
+# variáveis de ambiente com segredos — nunca versionar
+.env
+.env.*
+!.env.example

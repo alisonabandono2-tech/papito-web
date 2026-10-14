@@ -1,0 +1,71 @@
+:root {
+  --bg: #0A1A3F;
+  --card: #12285E;
+  --card2: #0f2250;
+  --line: #2A4790;
+  --ink: #FFFFFF;
+  --muted: #B8C6EA;
+  --muted2: #D6E0F7;
+  --amber: #FFC928;
+  --blue: #1F5BFF;
+  --good: #5FD38D;
+  --bad: #FF8A8E;
+  --radius: 18px;
+  --nav-h: 84px;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: #05102a;
+  color: var(--ink);
+  font-family: 'Figtree', system-ui, sans-serif;
+  overscroll-behavior: none;
+}
+button { font-family: inherit; cursor: pointer; }
+a { color: var(--amber); }
+
+.baloo { font-family: 'Baloo 2', 'Figtree', sans-serif; }
+
+/* No desktop, mostra o app dentro de uma moldura de celular. No celular, tela cheia. */
+#root {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.phone {
+  width: 100%;
+  max-width: 420px;
+  height: 100dvh;
+  max-height: 100dvh;
+  background: var(--bg);
+  position: relative;
+  overflow: hidden;
+}
+@media (min-width: 480px) {
+  #root { padding: 20px; background: radial-gradient(1200px 600px at 50% -10%, #11224d, #05102a 60%); }
+  .phone {
+    height: 860px;
+    max-height: calc(100dvh - 40px);
+    border-radius: 34px;
+    box-shadow: 0 30px 80px rgba(0,0,0,.55), 0 0 0 10px #0a1428, 0 0 0 11px #243a6b;
+  }
+}
+
+.scroll { height: 100%; overflow-y: auto; scrollbar-width: none; }
+.scroll::-webkit-scrollbar { display: none; }
+
+.press { transition: transform .08s ease; }
+.press:active { transform: scale(.95); }
+
+/* capa de jogo a partir do sprite único (12 colunas x 10 linhas) */
+.cover {
+  background-image: url('/capas.jpg');
+  background-size: 1200% 1000%;
+  background-repeat: no-repeat;
+  background-color: var(--card);
+}
+
+.soft { color: var(--muted2); }
+.tiny { font-size: 11px; color: var(--muted); }
