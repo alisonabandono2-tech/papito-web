@@ -101,18 +101,66 @@ export const VOTE_POOL: Vote[] = [
 // Confirmados: PG Soft = v_pgsoft (ex.: v_pgsoft:fortuneox), Evolution = v_evolution (ex.: v_evolution:bacboaovivo).
 export const AFF = '9g0q';
 
-const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '');
-
-// PG Soft: deriva o slug do nome (padrão confirmado com Fortune Ox).
-SLOTS_PG.forEach((g) => { g.play = `v_pgsoft:${slugify(g.name)}`; });
-
-// Ao vivo (Evolution): só os slugs confirmados; o resto cai no lobby até a gente confirmar.
-const LIVE_PLAY: Record<string, string> = {
+// IDs OFICIAIS de cada jogo, puxados da API da própria casa (bff-v0-games).
+// É exatamente o que vai em /casino/play/<id>. Jogo sem id aqui cai no lobby trackeado.
+const PLAY: Record<string, string> = {
+  // PG Soft
+  'Fortune Tiger': 'v_pgsoft:fortunetiger',
+  'Fortune Rabbit': 'v_pgsoft:fortunerabbit',
+  'Wild Bounty Showdown': 'v_pgsoft:wildbountyshowdown',
+  'Pinata Wins': 'v_pgsoft:pinatawins',
+  'Fortune Dragon': 'v_pgsoft:fortunedragon',
+  'Fortune Ox': 'v_pgsoft:fortuneox',
+  'Wild Bandito': 'v_pgsoft:wildbandito',
+  'Treasures of Aztec': 'v_pgsoft:treasuresofaztec',
+  'Anubis Wrath': 'v_pgsoft:anubiswrath',
+  'Midas Fortune': 'v_pgsoft:midasfortune',
+  'Fortune Snake': 'v_pgsoft:fortunesnake',
+  'Fortune Mouse': 'v_pgsoft:fortunemouse',
+  "Grimms' Bounty": 'v_pgsoft:grimmsbountyprincessthefrog',
+  'Lucky Neko': 'v_pgsoft:luckyneko',
+  'Mahjong Ways 2': 'v_pgsoft:mahjongways2',
+  'Ganesha Fortune': 'v_pgsoft:ganeshafortune',
+  'Dragon Hatch': 'v_pgsoft:dragonhatch',
+  'Lucky Mischief': 'v_pgsoft:luckymischief',
+  // Pragmatic
+  'Gates of Olympus Super Scatter': 'v_pragmatic:gatesofolympussuperscatter',
+  'Gates of Olympus 2500': 'v_pragmatic:gatesofolympus2500',
+  "Joker's Jewels": 'v_pragmatic:jokersjewels',
+  'Sugar Rush 1000': 'v_pragmatic:sugarrush1000',
+  'Gates of Olympus 1000': 'v_pragmatic:gatesofolympus1000',
+  'The Dog House': 'v_pragmatic:thedoghouse',
+  'Sweet Bonanza 2500': 'v_pragmatic:sweetbonanza2500',
+  'Big Bass Splash': 'v_pragmatic:bigbasssplash',
+  'Sweet Bonanza 1000': 'v_pragmatic:sweetbonanza1000',
+  'Zeus vs Hades': 'v_pragmatic:zeusvshadesgodsofwar',
+  'Big Bass Vegas 1000': 'v_pragmatic:bigbassvegas1000',
+  'Sugar Rush': 'v_pragmatic:sugarrush',
+  'Cheetah Wild': 'v_pragmatic:cheetahwild',
+  'Gold Party': 'v_pragmatic:goldparty',
+  'Sweet Bonanza': 'v_pragmatic:sweetbonanza',
+  'Gates of Olympus': 'v_pragmatic:gatesofolympus',
+  'Tigre Sortudo': 'v_pragmatic:tigresortudo',
+  'Deep Sea Frenzy': 'v_pragmatic:deepseafrenzy',
+  // Crash
+  'Aviator': 'v_spribe:aviator',
+  'Balloon': 'v_smartsoft:balloon',
+  'Astronaut': 'v_100hp:astronaut',
+  'Aviamasters': 'v_bgmng:aviamasters',
+  'JetX': 'v_smartsoft:jetx',
+  'Aviatrix': 'v_aviatrix:aviatrix',
+  'Spaceman': 'v_pragmatic:spaceman',
+  'Fortune Crash': 'v_100hp:fortunecrash',
+  'Big Bass Crash': 'v_pragmatic:bigbasscrash',
+  'Space XY': 'v_bgmng:spacexy',
+  // Ao vivo (Evolution) — Bac Bo na mesa em português
   'Bac Bo': 'v_evolution:bacboaovivo',
+  'Football Studio': 'v_evolution:footballstudio',
+  'Lightning Roulette': 'v_evolution:lightningroulette',
+  'XXXTreme Lightning Roulette': 'v_evolution:xxxtremelightningroulette',
 };
-LIVE.forEach((g) => { if (LIVE_PLAY[g.name]) g.play = LIVE_PLAY[g.name]; });
 
-// Pragmatic e Crash: provedor ainda não confirmado → abrem o lobby trackeado por enquanto.
+[...SLOTS_PG, ...SLOTS_PR, ...CRASH, ...LIVE].forEach((g) => { if (PLAY[g.name]) g.play = PLAY[g.name]; });
 
 // Monta o link ao clicar num jogo: jogo específico se tiver slug, senão o lobby.
 export function gameUrl(g: Game): string {
