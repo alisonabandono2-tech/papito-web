@@ -33,23 +33,20 @@ com ícone e tela cheia — é o que substitui a loja de apps.
 
 ## O que já está pronto
 
-- **Início**: saldo em BRL (conta sozinho na entrada), Depositar/Sacar, XP com barra animada,
-  sequência de dias, **baú diário** com confete + subida de nível em tela cheia, ranking de jogos
-  com capas, categorias (Slots PG/Pragmatic, Crash, Ao vivo), grade de jogos com capas reais,
-  barra inferior, oferta do dia, som e vibração em tudo.
-- **Papito**: 10 poses, com respiração/vida (Framer Motion).
-- **PWA**: manifest + service worker (abre offline, instala no celular).
+- **Início**: carteira (Depositar/Sacar), nível e baú diário, atalhos, ranking ao vivo, busca e
+  catálogo real (50 PG Soft + 50 Pragmatic + 10 Crash + 4 ao vivo) com capas e link direto de cada jogo.
+- **Depositar / Sacar**: passo a passo animado. Depósito abre direto a janela da casa (`?open=deposit`).
+  Saque não tem link na casa, então o passo a passo mostra onde tocar e abre o site.
+- **Prêmios**: presença diária com sequência real, escada de níveis, missões do dia.
+- **Escolher 3 jogos**, **Quiz** (52 perguntas, 5 por dia), **Reflexo** (mini game).
+- **Ferramentas**: Modo Sessão (cronômetro com limite), calculadora de banca, diário de sessões.
+- **Laboratório**: Bac Bo, Football Studio e Roleta, 5 estratégias cada, com mesa animada,
+  simulador com dinheiro fictício, riscos e comparação.
+- **Crash VIP**: libera no nível Brabo (1000 XP, só usando o app). Simulador de vela e chance real.
+- Motion (Framer Motion), som (Web Audio) e vibração em tudo. PWA instalável.
 
-## O que vem na sequência (reusa o protótipo já validado)
-
-- Recompensas, Laboratório de estratégias (Bac Bo / Football Studio / Roleta), Votar 3 jogos,
-  Quiz (banco de 50 perguntas), Ferramentas (Modo Sessão, calculadora, diário), Login vinculado.
-
-## Ligações que dependem da casa (1win ou outra autorizada)
-
-- **Login (SSO)**, **saldo/depósito/saque reais** e **abrir o jogo dentro do app** precisam da
-  **API de afiliado** da casa. Os botões já estão no lugar; é só plugar quando a casa liberar.
-  Nada de senha passa pelo app.
+Os links da casa (domínio, código de afiliado) ficam todos em `src/data/links.ts`.
+O catálogo fica em `src/data/catalog.ts` (puxado da API da casa).
 
 ## Estrutura
 

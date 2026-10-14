@@ -1,5 +1,5 @@
 // Service worker simples: cache do "app shell" pra abrir offline e rápido.
-const CACHE = 'papito-v1';
+const CACHE = 'papito-v2';
 const ASSETS = ['/', '/index.html', '/manifest.webmanifest'];
 
 self.addEventListener('install', (e) => {

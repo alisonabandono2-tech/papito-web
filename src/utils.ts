@@ -7,7 +7,10 @@ export function useCountUp(target: number, duration = 800) {
     const from = prev.current;
     const to = target;
     prev.current = target;
-    if (from === to) { setVal(to); return; }
+    if (from === to) {
+      setVal(to);
+      return;
+    }
     let raf = 0;
     const start = performance.now();
     const tick = (now: number) => {
@@ -29,8 +32,15 @@ export const LEVELS = [
   { at: 3000, name: 'Lenda' },
 ];
 
+// Área VIP (Crash) libera no nível Brabo.
+export const VIP_XP = 1000;
+
+export function levelName(name: string, fem: boolean) {
+  if (!fem) return name;
+  return ({ Parceiro: 'Parceira', Brabo: 'Braba' } as Record<string, string>)[name] || name;
+}
+
 export function levelInfo(totalXp: number, fem: boolean) {
-  const nm = (n: string) => (fem ? ({ Parceiro: 'Parceira', Brabo: 'Braba' } as any)[n] || n : n);
   let i = 0;
   for (let k = 0; k < LEVELS.length; k++) if (totalXp >= LEVELS[k].at) i = k;
   const cur = LEVELS[i];
@@ -41,8 +51,8 @@ export function levelInfo(totalXp: number, fem: boolean) {
   const span = ceil - floor;
   return {
     index: i,
-    name: nm(cur.name),
-    nextName: next ? nm(next.name) : nm(cur.name),
+    name: levelName(cur.name, fem),
+    nextName: next ? levelName(next.name, fem) : levelName(cur.name, fem),
     into,
     span,
     pct: Math.max(0, Math.min(100, (into / span) * 100)),
@@ -51,7 +61,12 @@ export function levelInfo(totalXp: number, fem: boolean) {
   };
 }
 
-export const money = (cents: number) => {
-  const [int, dec] = (cents / 100).toFixed(2).split('.');
-  return 'R$ ' + int.replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ',' + dec;
+export const money = (v: number) => {
+  const [int, dec] = Math.abs(v).toFixed(2).split('.');
+  return (v < 0 ? '-' : '') + 'R$ ' + int.replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ',' + dec;
 };
+
+// número do dia (muda à meia-noite local) — usado pra sortear o conteúdo do dia
+export function dayNumber(d = new Date()) {
+  return Math.floor((Date.UTC(d.getFullYear(), d.getMonth(), d.getDate())) / 86400000);
+}

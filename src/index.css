@@ -69,3 +69,34 @@ a { color: var(--amber); }
 
 .soft { color: var(--muted2); }
 .tiny { font-size: 11px; color: var(--muted); }
+
+/* brilho que passa no botão principal (chama o dedo) */
+.shine::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -60%;
+  width: 40%; height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.55), transparent);
+  transform: skewX(-20deg);
+  animation: shine 2.6s ease-in-out infinite;
+}
+@keyframes shine { 0% { left: -60%; } 55%, 100% { left: 130%; } }
+
+/* esqueleto brilhante enquanto a capa carrega */
+.skeleton::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(100deg, transparent 20%, rgba(255,255,255,.08) 50%, transparent 80%);
+  background-size: 200% 100%;
+  animation: sk 1.2s linear infinite;
+}
+@keyframes sk { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+
+/* pulsar suave (ponto "ao vivo", cadeado, etc.) */
+@keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(.85); opacity: .5; } }
+.pulse { animation: pulse 1.3s ease-in-out infinite; }
+
+input { font-family: inherit; }
+
+/* cada tela ocupa o "celular" inteiro (o App é o .phone) */
+.screen { position: absolute; inset: 0; overflow: hidden; background: var(--bg); }

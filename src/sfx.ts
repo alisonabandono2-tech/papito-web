@@ -87,10 +87,32 @@ export const sfx = {
     const notes = [523, 659, 784, 1047];
     notes.forEach((f, i) => tone({ freq: f, dur: 0.16, type: 'square', gain: 0.14, delay: i * 0.09 }));
   },
+  // bolha / pop de seleção
+  pop() {
+    tone({ freq: 520, slideTo: 880, dur: 0.07, type: 'sine', gain: 0.14 });
+  },
+  // tique de contador / roleta girando
+  tick() {
+    tone({ freq: 1200, dur: 0.025, type: 'square', gain: 0.05 });
+  },
+  // abrir cadeado / desbloquear
+  unlock() {
+    tone({ freq: 392, dur: 0.1, type: 'triangle', gain: 0.16 });
+    tone({ freq: 587, dur: 0.1, type: 'triangle', gain: 0.16, delay: 0.08 });
+    tone({ freq: 880, dur: 0.22, type: 'triangle', gain: 0.16, delay: 0.16 });
+  },
+  // vela do crash subindo (chamar a cada frame lento)
+  rise(mult: number) {
+    tone({ freq: 220 + Math.min(900, mult * 60), dur: 0.05, type: 'sine', gain: 0.05 });
+  },
+  // vela quebrou
+  crash() {
+    tone({ freq: 180, slideTo: 60, dur: 0.35, type: 'sawtooth', gain: 0.14 });
+  },
 };
 
 // vibração leve (háptico) onde o aparelho suportar
-export function haptic(ms = 12) {
+export function haptic(ms: number | number[] = 12) {
   try {
     if (navigator.vibrate) navigator.vibrate(ms);
   } catch {}
